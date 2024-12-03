@@ -1,0 +1,41 @@
+Basics of I2C Communication protocol:-
+
+--> Invented by Philips semiconductor in 1982.
+--> I2C stands for Inter-Integrated Circuit.
+--> I2C also known as TWI (Two Wire Interface).
+--> It is a serial communication protocol.
+--> Designed for short distance.
+--> It has only two wires (1. Serial Clock -- SCL) and (2. Serial Data)
+--> It has Master-Slave architecture.
+--> It is Half-Duplex Communication protocol (Synchronuous).
+--> It supports multiple speed modes:
+	1) Standard mode: 100Kbps
+	2) Fast mode: 400Kbps
+	3) Fast Plus mode: 1Mbps
+	4) High speed mode: 3.4Mbps
+	5) Ultra High speed mode: 5Mbps(unidirectional)
+
+--> Multiple master configuration.
+
+==> START AND STOP CONDITION:
+	1) SDA line -- LOW and SCL line -- HIGH
+
+==> ADDRESS FRAME:
+	7-bit or 10-bit address frame
+	This address frame is sent from master to slave with a read bit(1) or write bit(0)
+	After this, the slave sends Acknowledgement by pulling SDA line low during next clock pulse.
+
+==> DATA FRAME:
+	The data is transmitted in frame and each frame is of 8 bits.
+	This frame is followed by ACK/NACK bit.
+	ACK -> If data received.
+	NACK -> If data not received
+
+==> TYPES OF ERROR THAT CAN OCCUR IN I2C COMMUNICATION PROTOCOL:-
+	1) Bus Error: SDA line getting High when SCL line is high during start and stop condition.
+	2) Arbitration Lost error: In a multi-master, the master device loses the control of the bus by another master device during data Transmission.
+	The ARLO bit(Arbitration lost) is in status register.
+	3) Acknowledgement Failure: This happens when the addressed slave device does not send an acknowledgment (ACK) after receiving a byte from the master.
+	4) Overrun error: This error occurs when a new byte of data arrives before the previous byte has been read from the data register. It typically happens during reception and can lead to data loss. Can be prevented using clock stretching.
+	5) Underrun error: It occurs during transmission when a new byte needs to be sent but the data register has not been written with new data yet.
+	6) PEC Error: If cyclic redundancy check (CRC) is enabled, this error indicates a mismatch in the calculated CRC value for transmitted data. The PECERR bit in the status register signals this error, which requires proper handling to ensure data integrity
